@@ -1,16 +1,10 @@
 package proyectobd;
 
-import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 
 /**
@@ -289,8 +283,8 @@ public class Contenedor extends javax.swing.JFrame {
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
@@ -363,7 +357,7 @@ public class Contenedor extends javax.swing.JFrame {
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton5)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 152, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1185,7 +1179,7 @@ public class Contenedor extends javax.swing.JFrame {
                                             .addComponent(jTextField14)))))
                             .addGroup(jPanel8Layout.createSequentialGroup()
                                 .addGap(229, 229, 229)
-                                .addComponent(txtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
@@ -1463,19 +1457,21 @@ public class Contenedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtipoActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        Conexion con=new Conexion();
-        Connection reg=con.conexion();
-    String cod = txtipo.getText();
-        
+    String cod;
+            String sql="";
+            cod=txtipo.getText();
+            
+            sql="INSERT INTO comunidad (nombre) VALUES (?)";
         try {
-          
-            con.setString(1, cod);
+            PreparedStatement pst  = cn.prepareStatement(sql);
+            pst.setString(1, cod);
             
-                JOptionPane.showMessageDialog(this, "Registrado correctamente!!", "Atencion", JOptionPane.INFORMATION_MESSAGE);
+            int n=pst.executeUpdate();
+            if(n>0){
+            JOptionPane.showMessageDialog(null, "Registro Guardado con Exito");
+            }
+         } catch (SQLException ex) {
             
-         
-        } catch (HeadlessException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage() );
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -1661,4 +1657,6 @@ public class Contenedor extends javax.swing.JFrame {
     private void mostrarusuarios(String string) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    Conexion cc= new Conexion();
+Connection cn= cc.conexion();
 }

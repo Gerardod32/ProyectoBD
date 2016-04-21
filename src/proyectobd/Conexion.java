@@ -12,29 +12,24 @@ import javax.swing.JOptionPane;
  * @author Gerardo
  */
 public class Conexion {
-     Connection con=null;
-   public Connection conexion(){
-       try
-       {
-           //cargar nuestro driver
+Connection conect = null;
+   public Connection conexion()
+    {
+      try {
+             
+           //Cargamos el Driver MySQL
            Class.forName("com.mysql.jdbc.Driver");
-           con=DriverManager.getConnection("jdbc:mysql://localhost/mydb","BIMAR","A0E9M0L3N");
+           conect = DriverManager.getConnection("jdbc:mysql://localhost/mydb","BIMAR","A0E9M0L3N");
+           //JOptionPane.showMessageDialog(null, "conectado");
+           //Cargamos el Driver Access
+           //Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+           //Conectar en red base 
+           //String strConect = "jdbc:odbc:Driver=Microsoft Access Driver (*.mdb);DBQ=//servidor/bd_cw/cw.mdb";
+           //Conectar Localmente
+           //String strConect = "jdbc:odbc:Driver=Microsoft Access Driver (*.mdb);DBQ=D:/cwnetbeans/cw.mdb";
+          //conect = DriverManager.getConnection(strConect,"",""); 
+          } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error "+e);
         }
-       
-       catch (ClassNotFoundException | SQLException e)
-       
-       {
-           System.out.println("error de conexion");
-           JOptionPane.showMessageDialog(null, "error de conexion "+e);
-       }
-       return con;
-   }
-
-    Statement createStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }    
-
-    void setString(int i, String cod) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-}
+        return conect;
+     }}
